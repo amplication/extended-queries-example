@@ -1,0 +1,1 @@
+# example-extending-graphql-queries
