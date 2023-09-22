@@ -13,6 +13,7 @@ import {
 
 import { AddressTitle } from "../address/AddressTitle";
 import { OrderTitle } from "../order/OrderTitle";
+import { PaymentTitle } from "../payment/PaymentTitle";
 
 export const CustomerEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -31,6 +32,14 @@ export const CustomerEdit = (props: EditProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={OrderTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="payments"
+          reference="Payment"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PaymentTitle} />
         </ReferenceArrayInput>
         <TextInput label="Phone" source="phone" />
       </SimpleForm>

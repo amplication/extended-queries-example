@@ -32,16 +32,17 @@ model Order {
 }
 
 model Customer {
-  address   Address? @relation(fields: [addressId], references: [id])
+  address   Address?  @relation(fields: [addressId], references: [id])
   addressId String?
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   email     String?
   firstName String?
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   lastName  String?
   orders    Order[]
+  payments  Payment[]
   phone     String?
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime  @updatedAt
 }
 
 model Address {
@@ -64,4 +65,19 @@ model Product {
   name        String?
   orders      Order[]
   updatedAt   DateTime @updatedAt
+}
+
+model Payment {
+  createdAt   DateTime                @default(now())
+  customer    Customer?               @relation(fields: [customerId], references: [id])
+  customerId  String?
+  id          Int                     @id @default(autoincrement())
+  paymentType EnumPaymentPaymentType?
+  updatedAt   DateTime                @updatedAt
+}
+
+enum EnumPaymentPaymentType {
+  Card
+  Cash
+  Paypal
 }

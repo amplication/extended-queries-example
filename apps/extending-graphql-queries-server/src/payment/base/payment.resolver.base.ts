@@ -19,35 +19,31 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
-import { CreateCustomerArgs } from "./CreateCustomerArgs";
-import { UpdateCustomerArgs } from "./UpdateCustomerArgs";
-import { DeleteCustomerArgs } from "./DeleteCustomerArgs";
-import { CustomerCountArgs } from "./CustomerCountArgs";
-import { CustomerFindManyArgs } from "./CustomerFindManyArgs";
-import { CustomerFindUniqueArgs } from "./CustomerFindUniqueArgs";
-import { Customer } from "./Customer";
-import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
-import { Order } from "../../order/base/Order";
-import { PaymentFindManyArgs } from "../../payment/base/PaymentFindManyArgs";
-import { Payment } from "../../payment/base/Payment";
-import { Address } from "../../address/base/Address";
-import { CustomerService } from "../customer.service";
+import { CreatePaymentArgs } from "./CreatePaymentArgs";
+import { UpdatePaymentArgs } from "./UpdatePaymentArgs";
+import { DeletePaymentArgs } from "./DeletePaymentArgs";
+import { PaymentCountArgs } from "./PaymentCountArgs";
+import { PaymentFindManyArgs } from "./PaymentFindManyArgs";
+import { PaymentFindUniqueArgs } from "./PaymentFindUniqueArgs";
+import { Payment } from "./Payment";
+import { Customer } from "../../customer/base/Customer";
+import { PaymentService } from "../payment.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
-@graphql.Resolver(() => Customer)
-export class CustomerResolverBase {
+@graphql.Resolver(() => Payment)
+export class PaymentResolverBase {
   constructor(
-    protected readonly service: CustomerService,
+    protected readonly service: PaymentService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
 
   @graphql.Query(() => MetaQueryPayload)
   @nestAccessControl.UseRoles({
-    resource: "Customer",
+    resource: "Payment",
     action: "read",
     possession: "any",
   })
-  async _customersMeta(
-    @graphql.Args() args: CustomerCountArgs
+  async _paymentsMeta(
+    @graphql.Args() args: PaymentCountArgs
   ): Promise<MetaQueryPayload> {
     const result = await this.service.count(args);
     return {
@@ -56,28 +52,28 @@ export class CustomerResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.Query(() => [Customer])
+  @graphql.Query(() => [Payment])
   @nestAccessControl.UseRoles({
-    resource: "Customer",
+    resource: "Payment",
     action: "read",
     possession: "any",
   })
-  async customers(
-    @graphql.Args() args: CustomerFindManyArgs
-  ): Promise<Customer[]> {
+  async payments(
+    @graphql.Args() args: PaymentFindManyArgs
+  ): Promise<Payment[]> {
     return this.service.findMany(args);
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.Query(() => Customer, { nullable: true })
+  @graphql.Query(() => Payment, { nullable: true })
   @nestAccessControl.UseRoles({
-    resource: "Customer",
+    resource: "Payment",
     action: "read",
     possession: "own",
   })
-  async customer(
-    @graphql.Args() args: CustomerFindUniqueArgs
-  ): Promise<Customer | null> {
+  async payment(
+    @graphql.Args() args: PaymentFindUniqueArgs
+  ): Promise<Payment | null> {
     const result = await this.service.findOne(args);
     if (result === null) {
       return null;
@@ -86,23 +82,23 @@ export class CustomerResolverBase {
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
-  @graphql.Mutation(() => Customer)
+  @graphql.Mutation(() => Payment)
   @nestAccessControl.UseRoles({
-    resource: "Customer",
+    resource: "Payment",
     action: "create",
     possession: "any",
   })
-  async createCustomer(
-    @graphql.Args() args: CreateCustomerArgs
-  ): Promise<Customer> {
+  async createPayment(
+    @graphql.Args() args: CreatePaymentArgs
+  ): Promise<Payment> {
     return await this.service.create({
       ...args,
       data: {
         ...args.data,
 
-        address: args.data.address
+        customer: args.data.customer
           ? {
-              connect: args.data.address,
+              connect: args.data.customer,
             }
           : undefined,
       },
@@ -110,24 +106,24 @@ export class CustomerResolverBase {
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
-  @graphql.Mutation(() => Customer)
+  @graphql.Mutation(() => Payment)
   @nestAccessControl.UseRoles({
-    resource: "Customer",
+    resource: "Payment",
     action: "update",
     possession: "any",
   })
-  async updateCustomer(
-    @graphql.Args() args: UpdateCustomerArgs
-  ): Promise<Customer | null> {
+  async updatePayment(
+    @graphql.Args() args: UpdatePaymentArgs
+  ): Promise<Payment | null> {
     try {
       return await this.service.update({
         ...args,
         data: {
           ...args.data,
 
-          address: args.data.address
+          customer: args.data.customer
             ? {
-                connect: args.data.address,
+                connect: args.data.customer,
               }
             : undefined,
         },
@@ -142,15 +138,15 @@ export class CustomerResolverBase {
     }
   }
 
-  @graphql.Mutation(() => Customer)
+  @graphql.Mutation(() => Payment)
   @nestAccessControl.UseRoles({
-    resource: "Customer",
+    resource: "Payment",
     action: "delete",
     possession: "any",
   })
-  async deleteCustomer(
-    @graphql.Args() args: DeleteCustomerArgs
-  ): Promise<Customer | null> {
+  async deletePayment(
+    @graphql.Args() args: DeletePaymentArgs
+  ): Promise<Payment | null> {
     try {
       return await this.service.delete(args);
     } catch (error) {
@@ -164,59 +160,19 @@ export class CustomerResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Order], { name: "orders" })
-  @nestAccessControl.UseRoles({
-    resource: "Order",
-    action: "read",
-    possession: "any",
-  })
-  async resolveFieldOrders(
-    @graphql.Parent() parent: Customer,
-    @graphql.Args() args: OrderFindManyArgs
-  ): Promise<Order[]> {
-    const results = await this.service.findOrders(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Payment], { name: "payments" })
-  @nestAccessControl.UseRoles({
-    resource: "Payment",
-    action: "read",
-    possession: "any",
-  })
-  async resolveFieldPayments(
-    @graphql.Parent() parent: Customer,
-    @graphql.Args() args: PaymentFindManyArgs
-  ): Promise<Payment[]> {
-    const results = await this.service.findPayments(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Address, {
+  @graphql.ResolveField(() => Customer, {
     nullable: true,
-    name: "address",
+    name: "customer",
   })
   @nestAccessControl.UseRoles({
-    resource: "Address",
+    resource: "Customer",
     action: "read",
     possession: "any",
   })
-  async resolveFieldAddress(
-    @graphql.Parent() parent: Customer
-  ): Promise<Address | null> {
-    const result = await this.service.getAddress(parent.id);
+  async resolveFieldCustomer(
+    @graphql.Parent() parent: Payment
+  ): Promise<Customer | null> {
+    const result = await this.service.getCustomer(parent.id);
 
     if (!result) {
       return null;

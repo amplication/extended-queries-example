@@ -15,6 +15,7 @@ import { AddressWhereUniqueInput } from "../../address/base/AddressWhereUniqueIn
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { OrderUpdateManyWithoutCustomersInput } from "./OrderUpdateManyWithoutCustomersInput";
+import { PaymentUpdateManyWithoutCustomersInput } from "./PaymentUpdateManyWithoutCustomersInput";
 
 @InputType()
 class CustomerUpdateInput {
@@ -74,6 +75,18 @@ class CustomerUpdateInput {
     nullable: true,
   })
   orders?: OrderUpdateManyWithoutCustomersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentUpdateManyWithoutCustomersInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentUpdateManyWithoutCustomersInput)
+  @IsOptional()
+  @Field(() => PaymentUpdateManyWithoutCustomersInput, {
+    nullable: true,
+  })
+  payments?: PaymentUpdateManyWithoutCustomersInput;
 
   @ApiProperty({
     required: false,

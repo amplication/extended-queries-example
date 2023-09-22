@@ -6,6 +6,7 @@ import { OrderModule } from "./order/order.module";
 import { CustomerModule } from "./customer/customer.module";
 import { AddressModule } from "./address/address.module";
 import { ProductModule } from "./product/product.module";
+import { PaymentModule } from "./payment/payment.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -27,6 +28,7 @@ import { AuthModule } from "./auth/auth.module";
     CustomerModule,
     AddressModule,
     ProductModule,
+    PaymentModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,
