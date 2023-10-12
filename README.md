@@ -1,1 +1,1 @@
-# example-extending-graphql-queries
+# extended-queries-example
