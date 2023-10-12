@@ -1,5 +1,5 @@
 {
-  "name": "@extending-graphql-queries/admin",
+  "name": "@extended-queries-example-service/admin",
   "private": true,
   "dependencies": {
     "@apollo/client": "3.6.9",

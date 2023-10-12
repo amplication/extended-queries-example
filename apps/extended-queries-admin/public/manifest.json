@@ -1,6 +1,6 @@
 {
-  "short_name": "extending-graphql-queries",
-  "name": "extending-graphql-queries",
+  "short_name": "extended-queries-example-service",
+  "name": "extended-queries-example-service",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,5 +1,5 @@
 {
-  "name": "@extending-graphql-queries/server",
+  "name": "@extended-queries-example-service/server",
   "private": true,
   "scripts": {
     "start": "nest start",

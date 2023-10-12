@@ -48,7 +48,7 @@ const App = (): React.ReactElement => {
   return (
     <div className="App">
       <Admin
-        title={"extending-graphql-queries"}
+        title={"extended-queries-example-service"}
         dataProvider={dataProvider}
         authProvider={jwtAuthProvider}
         theme={theme}
