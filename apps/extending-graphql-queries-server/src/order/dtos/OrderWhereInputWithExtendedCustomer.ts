@@ -2,7 +2,7 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { CustomerWhereInputWithExtendedFields } from "src/customer/dtos/CustomerWhereInputWithExtendedFields";
+import { CustomerWhereInputWithOperator } from "src/customer/dtos/CustomerWhereInputWithOperator";
 import { FloatNullableFilter } from "src/util/FloatNullableFilter";
 import { StringFilter } from "src/util/StringFilter";
 import { ProductWhereUniqueInput } from "src/product/base/ProductWhereUniqueInput";
@@ -12,15 +12,15 @@ import { IntNullableFilter } from "src/util/IntNullableFilter";
 class OrderWhereInputWithExtendedCustomer {
   @ApiProperty({
     required: false,
-    type: () => CustomerWhereInputWithExtendedFields,
+    type: () => CustomerWhereInputWithOperator,
   })
   @ValidateNested()
-  @Type(() => CustomerWhereInputWithExtendedFields)
+  @Type(() => CustomerWhereInputWithOperator)
   @IsOptional()
-  @Field(() => CustomerWhereInputWithExtendedFields, {
+  @Field(() => CustomerWhereInputWithOperator, {
     nullable: true,
   })
-  customer?: CustomerWhereInputWithExtendedFields;
+  customer?: CustomerWhereInputWithOperator;
 
   @ApiProperty({
     required: false,

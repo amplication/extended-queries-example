@@ -4,7 +4,7 @@ import { Type } from "class-transformer";
 import { CustomerWhereInput } from "../base/CustomerWhereInput";
 
 @InputType()
-class CustomerWhereInputWithExtendedFields extends CustomerWhereInput {
+class CustomerWhereInputWithOperator extends CustomerWhereInput {
   @Type(() => CustomerWhereInput)
   @IsOptional()
   @Field(() => CustomerWhereInput, {
@@ -27,4 +27,4 @@ class CustomerWhereInputWithExtendedFields extends CustomerWhereInput {
   NOT?: CustomerWhereInput;
 }
 
-export { CustomerWhereInputWithExtendedFields as CustomerWhereInputWithExtendedFields };
+export { CustomerWhereInputWithOperator as CustomerWhereInputWithOperator };
