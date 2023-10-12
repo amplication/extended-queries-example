@@ -69,7 +69,7 @@ type Customer {
   firstName: String
   id: String!
   lastName: String
-  orders(orderBy: [OrderOrderByInput!], skip: Float, take: Float, where: OrderWhereInputWithExtendedCustomer): [Order!]!
+  orders(orderBy: [OrderOrderByInput!], skip: Float, take: Float, where: OrderWhereInput): [Order!]!
   payments(orderBy: [PaymentOrderByInput!], skip: Float, take: Float, where: PaymentWhereInput): [Payment!]!
   phone: String
   updatedAt: DateTime!
@@ -370,7 +370,7 @@ type Product {
   id: String!
   itemPrice: Float
   name: String
-  orders(orderBy: [OrderOrderByInput!], skip: Float, take: Float, where: OrderWhereInputWithExtendedCustomer): [Order!]!
+  orders(orderBy: [OrderOrderByInput!], skip: Float, take: Float, where: OrderWhereInput): [Order!]!
   updatedAt: DateTime!
 }
 
@@ -421,7 +421,7 @@ type Query {
   customer(where: CustomerWhereUniqueInput!): Customer
   customers(orderBy: [CustomerOrderByInput!], skip: Float, take: Float, where: CustomerWhereInput): [Customer!]!
   order(where: OrderWhereUniqueInput!): Order
-  orders(orderBy: [OrderOrderByInput!], skip: Float, take: Float, where: OrderWhereInputWithExtendedCustomer): [Order!]!
+  orders(orderBy: [OrderOrderByInput!], skip: Float, take: Float, where: OrderWhereInput): [Order!]!
   ordersWherePaymentMethod(orderBy: [OrderOrderByInput!], skip: Float, take: Float, where: OrderWhereInputWithExtendedCustomer): [Order!]!
   payment(where: PaymentWhereUniqueInput!): Payment
   payments(orderBy: [PaymentOrderByInput!], skip: Float, take: Float, where: PaymentWhereInput): [Payment!]!
