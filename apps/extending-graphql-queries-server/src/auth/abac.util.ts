@@ -14,6 +14,6 @@ export function getInvalidAttributes(
   // with null prototypes. And in graphql requests, the
   // object passed here by the request interceptor is an object
   // with a null prototype.
-  const filteredData = permission.filter(data);
+  const filteredData = permission.filter(structuredClone(data));
   return Object.keys(data).filter((key) => !(key in filteredData));
 }
