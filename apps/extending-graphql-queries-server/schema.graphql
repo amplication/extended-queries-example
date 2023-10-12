@@ -133,7 +133,7 @@ input CustomerWhereInput {
   phone: StringNullableFilter
 }
 
-input CustomerWhereInputWithExtendedFields {
+input CustomerWhereInputWithOperator {
   AND: CustomerWhereInput
   NOT: CustomerWhereInput
   OR: CustomerWhereInput
@@ -300,7 +300,7 @@ input OrderWhereInput {
 }
 
 input OrderWhereInputWithExtendedCustomer {
-  customer: CustomerWhereInputWithExtendedFields
+  customer: CustomerWhereInputWithOperator
   discount: FloatNullableFilter
   id: StringFilter
   product: ProductWhereUniqueInput
