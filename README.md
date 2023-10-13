@@ -22,7 +22,7 @@ model Customer {
 }
 
 model Payment {
-  id          Int                     @id @default(autoincrement())
+  id          String                  @id @default(cuid())
   customer    Customer?               @relation(fields: [customerId], references: [id])
   customerId  String?
   paymentType EnumPaymentPaymentType?
