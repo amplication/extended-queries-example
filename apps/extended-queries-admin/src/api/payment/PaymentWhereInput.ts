@@ -1,8 +1,8 @@
 import { CustomerWhereUniqueInput } from "../customer/CustomerWhereUniqueInput";
-import { IntFilter } from "../../util/IntFilter";
+import { StringFilter } from "../../util/StringFilter";
 
 export type PaymentWhereInput = {
   customer?: CustomerWhereUniqueInput;
-  id?: IntFilter;
+  id?: StringFilter;
   paymentType?: "Card" | "Cash" | "Paypal";
 };
