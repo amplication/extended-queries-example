@@ -173,17 +173,6 @@ input FloatNullableFilter {
   notIn: [Float!]
 }
 
-input IntFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: Int
-  notIn: [Int!]
-}
-
 input IntNullableFilter {
   equals: Int
   gt: Int
@@ -315,7 +304,7 @@ input OrderWhereUniqueInput {
 type Payment {
   createdAt: DateTime!
   customer: Customer
-  id: Float!
+  id: String!
   paymentType: EnumPaymentPaymentType
   updatedAt: DateTime!
 }
@@ -356,12 +345,12 @@ input PaymentUpdateManyWithoutCustomersInput {
 
 input PaymentWhereInput {
   customer: CustomerWhereUniqueInput
-  id: IntFilter
+  id: StringFilter
   paymentType: EnumPaymentPaymentType
 }
 
 input PaymentWhereUniqueInput {
-  id: Float!
+  id: String!
 }
 
 type Product {

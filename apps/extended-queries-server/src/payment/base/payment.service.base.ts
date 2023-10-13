@@ -47,7 +47,7 @@ export class PaymentServiceBase {
     return this.prisma.payment.delete(args);
   }
 
-  async getCustomer(parentId: number): Promise<Customer | null> {
+  async getCustomer(parentId: string): Promise<Customer | null> {
     return this.prisma.payment
       .findUnique({
         where: { id: parentId },

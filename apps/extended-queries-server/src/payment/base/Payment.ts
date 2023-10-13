@@ -15,7 +15,7 @@ import {
   IsDate,
   ValidateNested,
   IsOptional,
-  IsInt,
+  IsString,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
@@ -43,11 +43,11 @@ class Payment {
 
   @ApiProperty({
     required: true,
-    type: Number,
+    type: String,
   })
-  @IsInt()
-  @Field(() => Number)
-  id!: number;
+  @IsString()
+  @Field(() => String)
+  id!: string;
 
   @ApiProperty({
     required: false,
