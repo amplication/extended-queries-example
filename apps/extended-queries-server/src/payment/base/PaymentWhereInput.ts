@@ -14,7 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
 import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
-import { IntFilter } from "../../util/IntFilter";
+import { StringFilter } from "../../util/StringFilter";
 import { EnumPaymentPaymentType } from "./EnumPaymentPaymentType";
 
 @InputType()
@@ -33,14 +33,14 @@ class PaymentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntFilter,
+    type: StringFilter,
   })
-  @Type(() => IntFilter)
+  @Type(() => StringFilter)
   @IsOptional()
-  @Field(() => IntFilter, {
+  @Field(() => StringFilter, {
     nullable: true,
   })
-  id?: IntFilter;
+  id?: StringFilter;
 
   @ApiProperty({
     required: false,

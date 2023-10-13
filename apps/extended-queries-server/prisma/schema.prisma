@@ -71,7 +71,7 @@ model Payment {
   createdAt   DateTime                @default(now())
   customer    Customer?               @relation(fields: [customerId], references: [id])
   customerId  String?
-  id          Int                     @id @default(autoincrement())
+  id          String                  @id @default(cuid())
   paymentType EnumPaymentPaymentType?
   updatedAt   DateTime                @updatedAt
 }
