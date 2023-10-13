@@ -300,7 +300,7 @@ class OrderWhereInputWithExtendedCustomer {
 export { OrderWhereInputWithExtendedCustomer as OrderWhereInputWithExtendedCustomer };
 ```
 
-### step 3 - Crafting a Customized OrderFindManyArgs DTO
+### Step 3 - Crafting a Customized OrderFindManyArgs DTO
 
 Given that we're keen on safeguarding the integrity of the base folder and maintaining the versatility of our queries, it's apt to design a new findManyArgs DTO. This DTO will utilize the `OrderWhereInputWithExtendedCustomer` in lieu of the more restricted `OrderWhereInput`.
 
